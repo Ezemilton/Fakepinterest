@@ -22,14 +22,14 @@ def homepage():
         #.. no bcrypt passar 2 parametro: a senha criptografada e a senha que o usuario preencheo no form
             login_user(usuario)
             return redirect(url_for("perfil", id_usuario=usuario.id))
-            bcrypt.check_password_hash(usuario.senha, formlogin.senha.data)
+            bcrypt.check_password_hash(usuario.senha.encode("utf-8"), formlogin.senha.data)
     return render_template("homepage.html", form=formlogin)
 
 @app.route("/criarconta", methods=["GET", "POST"])
 def criarconta():
     formcriarconta = FormCriarConta()
     if formcriarconta.validate_on_submit():
-        senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
+        senha = bcrypt.generate_password_hash(formcriarconta.senha.data).decode("utf-8")
         #para visualizar a senha deve usar bcrypt.check.password.hash(senha)
         usuario = Usuario(username=formcriarconta.username.data,
                           senha=senha, email=formcriarconta.email.data)
