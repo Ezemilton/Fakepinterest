@@ -5,6 +5,10 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+#if os.getenv("DEBUG") == 0:
+#    link_banco = os.getenv("DATABASE_URL")
+#else:
+#    link_banco = "sqlite://comunidade.db"
 #Variável que define o endereço do banco de dados
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///comunidade.db"
 #Variável que define a criptografia secreta
